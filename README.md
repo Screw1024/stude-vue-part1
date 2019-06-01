@@ -1,4 +1,4 @@
-# stude-vue-part1
+# study-vue-part1
 学习vue的基本用法，如computed属性等，每个属性做一个可以操作的小项目
 
 #### 前言
