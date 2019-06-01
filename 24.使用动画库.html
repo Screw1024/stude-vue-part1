@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="vue.js"></script>
+    <link rel="stylesheet" type="text/css" href="animate.css">
+</head>
+<body>
+    <div id="app">
+        <button @click="type=!type">显示/隐藏</button>
+        <!-- 定义动画的标签 -->
+        <transition enter-active-class="animated slideInDown" leave-active-class="animated zoomOut">
+            <h1 v-if="type">hello world</h1>
+        </transition>
+    </div>
+
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                type:false
+            }
+        });
+    </script>
+</body>
+</html>

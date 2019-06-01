@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <li v-for="v in status">
+            {{v.name}} - {{v.sex}}
+        </li>
+        {{type}}
+        <input type="radio" v-model="type" value="girl">程序媛
+        <input type="radio" v-model="type" value="boy">程序员
+    </div>
+    
+    <script type="text/javascript"> 
+        var app = new Vue({
+            el:'#app',
+            computed:{
+                status(){
+                    if(this.type=="all"){
+                        return this.user;
+                    }else{
+                        // 通过过滤器进行筛选并返回值
+                        return this.user.filter((v)=>{
+                            return v.sex == this.type;
+                        });
+                    }
+                }
+            },
+            data:{
+                type:'all',
+                user:[
+                   {name:'陈小帅',sex:'boy'},
+                   {name:'陈大帅',sex:'girl'}
+                ]
+            }
+        });
+    </script>
+</body>
+</html>

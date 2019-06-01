@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 定义的sum方法，调用父组件的total()方法 -->
+        <!-- 这里定义注意加：才能调用props中的变量 -->
+        <ads :lists="goods" @sum="total"></ads>
+        总计：{{totalPrice}}元
+    </div>
+    
+    <script type="text/x-template" id="ads">
+        <table border='1' width="90%">
+            <tr>
+                <th>商品名称</th>
+                <th>商品价格</th>
+                <th>商品数量</th>
+            </tr>
+            <tr v-for="v in lists">
+                <td>{{v.title}}</td>
+                <td>{{v.price}}</td>
+                <td>
+                    <input type="text" v-model="v.num" @blur="sum">
+                </td>
+            </tr>
+        </table>
+    </script>
+
+    <script type="text/javascript">
+        var ads = {
+            template:"#ads",
+            props:['lists'],
+            methods:{
+                sum(){
+                    this.$emit('sum');
+                }
+            }
+        };
+              
+        var app = new Vue({
+            el:'#app',
+            components:{ads},
+            // 挂在
+            mounted(){
+                this.total();
+            },
+            data:{
+                totalPrice:0,
+                goods:[
+                  {title:"OnePlus7 Pro",price:3999,num:1},
+                  {title:"HUAWEI P30 Pro",price:5999,num:1}
+                ]
+            },
+            methods:{
+                total(){
+                     this.totalPrice=0;
+                     this.goods.forEach((v)=>{
+                        this.totalPrice += v.num * v.price;
+                     })
+                }
+            }
+        });
+    </script>
+</body>
+</html>

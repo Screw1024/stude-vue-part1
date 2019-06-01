@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- .sync同步修饰符，会改变data与其同步显示，触发computed计算属性 -->
+        <ads :lists.sync="goods"></ads>
+        总计：{{totalPrice}}元
+    </div>
+    
+    <script type="text/x-template" id="ads">
+        <table border='1' width="90%">
+            <tr>
+                <th>商品名称</th>
+                <th>商品价格</th>
+                <th>商品数量</th>
+            </tr>
+            <tr v-for="v in lists">
+                <td>{{v.title}}</td>
+                <td>{{v.price}}</td>
+                <td>
+                    <input type="text" v-model="v.num">
+                </td>
+            </tr>
+        </table>
+    </script>
+
+    <script type="text/javascript">
+        var ads = {
+            template:"#ads",
+            props:['lists']
+        };
+              
+        var app = new Vue({
+            el:'#app',
+            components:{ads},
+            computed:{
+                totalPrice(){
+                    var sum = 0;
+                    this.goods.forEach((v)=>{
+                        sum += v.num*v.price;
+                    })
+                    return sum;
+                }
+            },
+            data:{
+                goods:[
+                  {title:"OnePlus7 Pro",price:3999,num:1},
+                  {title:"HUAWEI P30 Pro",price:5999,num:1}
+                ]
+            }
+        });
+    </script>
+</body>
+</html>

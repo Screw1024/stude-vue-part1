@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <li v-for="v in comments">
+            {{v.content}}         
+        </li>
+        <textarea v-model="current_content" cols="30" rows="10"></textarea>
+        <br>
+        <!-- v-on可以简写成@ -->
+        <button v-on:click="push">发表</button>
+    </div>
+
+    <script type="text/javascript">
+        var app = new Vue({
+            el:'#app',
+            data:{
+                // 显示区域的内容
+                current_content:"",
+                comments:[
+                   {content:'hello'},
+                   {content:'world'},
+                ]
+            },
+            methods:{
+                push(){
+                    // {}中进行想要push内容的替换
+                    var content = {content:this.current_content}
+                    this.comments.push(content);
+                    this.current_content = '';    
+                }
+            }
+        });
+    </script>
+</body>
+</html>

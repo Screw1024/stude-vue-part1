@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="vue.js"></script>
+    <script type="text/javascript" src="axios.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="word">
+    </div>
+
+    <script type="text/javascript">
+        var app = new Vue({
+            el:'#app',
+
+            //
+            watch:{
+               word(newV,oldV){
+                console.log(newV+'---->'+oldV);
+               }
+            },
+            data:{
+                word:''
+            }
+        });
+    </script>
+</body>
+</html>

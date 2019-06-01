@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <button @click="type=!type">切换</button>
+        <!-- 定义动画的标签 -->
+        <transition name="show">
+            <h1 v-if="type">hello world</h1>
+        </transition>
+    </div>
+
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                type:true
+            }
+        });
+    </script>
+
+    <style>
+        .show-enter-active{
+            animation: show-in 1s;
+            transition: all 1s;
+        }   
+        .show-leave-active{
+            animation: hide-out 1s;
+            transition: all 1s;
+        }
+        .show-leave-to,.show-enter{
+            opacity: 0;
+        }
+
+        @keyframes show-in{
+            0%{
+                transform: translate(200px,0);
+            }
+            100%{
+                transform: translate(0, 0);
+            }
+        } 
+
+        @keyframes hide-out{
+            0%{
+                transform: translate(0,0);
+            }
+            100%{
+                transform: translate(200px, 0);
+            }
+        }
+
+
+    </style>
+</body>
+</html>

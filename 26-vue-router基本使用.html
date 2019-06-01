@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="vue.js"></script>
+    <script type="text/javascript" src="vue-router.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 定义单页面的锚点 -->
+        <router-link to="/content">内容</router-link>
+        
+        <!-- 页面的显示范围 -->
+        <router-view></router-view>
+    </div>
+    
+    <!-- 参数不管几个，都能通过正则匹配出来 -->
+    <script type="x-template" id="content">
+        <div>
+            cid:{{$route.params.cid}} --- id:{{$route.params.id}}
+            <br>
+            <button @click="show">检测参数</button>
+        </div>
+    </script>
+
+    <script type="text/javascript">
+        const content={
+            template:"#content",
+            methods:{
+                show(){
+                    console.log(this.$route.params);
+                }
+            }
+        }
+
+        // 跟初始化Vue一样，初始化VueRouter
+        let routes = [
+            {path:'/content/:cid/show/:id',component:content}
+        ]
+
+        let route = new VueRouter({routes})
+       
+        var app = new Vue({
+            el:'#app',
+            router:route
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+       <bs-panel>
+           <h1 slot="1">hello</h1>
+           <h1 slot="2">world</h1>
+       </bs-panel>
+    </div>
+
+    <script type="text/x-template" id="bsPanel">
+        <div>
+            <!-- slot通过name指定替换的标签，如不指定替换全部 -->
+            <slot name="1">999</slot>
+            <slot name="2">000</slot>
+        </div> 
+    </script>
+
+    <script type="text/javascript">
+
+        var bsPanel = {
+            template:"#bsPanel"
+        };
+        
+        // 根组件特殊，直接通过el当作模板
+        var app = new Vue({
+            el:'#app',
+            components:{bsPanel}
+        });
+    </script>
+</body>
+</html>

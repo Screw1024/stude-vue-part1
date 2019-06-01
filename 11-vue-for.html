@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <table border="1">
+            <tr>
+                <th>标题</th>
+                <th>编号</th>
+            </tr>
+            <tbody>
+                <tr v-for="field in news">
+                    <td>{{field.id}}</td>
+                    <td>{{field.title}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script type="text/javascript">
+        var app = new Vue({
+            el:'#app',
+            data:{
+                news:[
+                  {id:1,title:'hello'},
+                  {id:2,title:'world'}
+                ]
+            }
+        });
+    </script>
+</body>
+</html>

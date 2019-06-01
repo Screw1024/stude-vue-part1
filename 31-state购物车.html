@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="vue.js"></script>
+    <script type="text/javascript" src="vuex.js"></script>
+</head>
+<body>
+    <div id="app">
+        <Lists></Lists>
+    </div>
+    
+    <script type="text/x-template" id="Lists">
+        <div>
+            <table border="1" width="80%">
+                <tr><th>编号</th><th>手机品类</th><th>价格</th><th>数量</th></tr>
+                <tr v-for="v in goods">
+                    <td>{{v.id}}</td>
+                    <td>{{v.title}}</td>
+                    <td>{{v.price}}</td>
+                    <td>{{v.num}}</td>
+                    <td>{{v.totalPrice}}</td>
+                </tr>
+            </table>
+
+            <h1>预算:{{totalPrice}}</h1>
+        </div>    
+    </script>
+
+
+    <script type="text/javascript">
+        let Lists = {
+            template:"#Lists",
+            computed:{
+                totalPrice(){
+                    return this.$store.getters.totalPrice;
+                },
+                goods(){
+                    return this.$store.getters.goods;
+                }
+            }
+        }
+        
+        // 单纯为了将数据提取出来，实现功能的单一化
+        let store = new Vuex.Store({
+            state:{
+                totalPrice:100,
+                goods:[
+                  {id:1,title:"OnePlus7 PRO",price:3999,num:4},
+                  {id:2,title:"RealMi K20",price:2999,num:6}
+                ]
+            },
+            // 类似methods属性
+            getters:{
+                //获取商品总价
+                totalPrice:state =>{
+                    let totalPrice = 0;
+                    state.goods.forEach((v)=>{
+                        totalPrice += v.num * v.price;
+                    })
+                    return totalPrice;
+                },
+                goods(state){
+                    let goods = state.goods;
+                    goods.forEach((v)=>{
+                        v.totalPrice = v.num * v.price;
+                    })
+
+                    return goods;
+                }
+            }
+        })
+        
+        // 将store定义到app中，这样就可以在子组件中也能使用数据 
+        var app = new Vue({
+            el:"#app",
+            store,
+            components:{
+                Lists
+            }
+        })
+    </script>
+</body>
+</html>

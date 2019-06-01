@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <button @click="type=!type">显示/隐藏</button>
+        <!-- 定义动画的标签 -->
+        <transition name="show">
+            <h1 v-if="type">hello world</h1>
+        </transition>
+    </div>
+
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                type:false
+            }
+        });
+    </script>
+
+    <style>
+        /* 动画的定义，前面是动画的类名，后面是vue动画的状态 */
+        .show-enter,.show-leave-to{
+            opacity: 0;
+        }
+        /* 定义动画的属性完全是过程中的属性，只是过度状态 */
+        .show-enter-active,.show-leave-active{
+            transition: all 2s;
+        }
+        .show-enter-to{
+            font-size: 150px;
+        }
+    </style>
+</body>
+</html>

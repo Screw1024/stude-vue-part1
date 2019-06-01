@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 子组件在根组件中使用，并且能重复使用 -->
+        <ads></ads>
+        <br>
+        <ads></ads>
+        <br>
+        <ads></ads> 
+    </div>
+    
+    <!-- 通过script标签添加文本信息，不能公用一个数据，不然重复利用时会一个改变全部改变 -->
+    <script type="text/x-template" id="ads">
+        <div>
+            <li v-for="(v,k) in cool">
+                {{v.ad}}
+                <button @click="del(k)">删除</button>
+            </li>
+        </div>
+    </script>
+
+    <script type="text/javascript">
+        // 先将组件定义好，直接在根组件中使用
+        var ads = {
+            template:"#ads",
+            data(){
+                return {
+                    cool:[
+                      {ad:'yanzhi'},
+                      {ad:'zhishang'}
+                    ]
+                }
+            },
+            methods:{
+                del(k){
+                    this.cool.splice(k,1);
+                }
+            }
+        };
+              
+        // 根组件特殊，直接通过el当作模板
+        var app = new Vue({
+            el:'#app',
+            components:{ads}
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+    <style type="text/css">
+        .red{
+            color: red;
+        }
+        .hd{
+            color: green;
+        }
+    </style>
+    <div id="app">
+        <!-- v-bind:可以绑定任意属性，同时可略v-bind只留：里面再嵌套单引号可不用被替换 -->
+        <h1 :class="hd">hello</h1>
+        <h1 v-bind:class="'hd'">nihao</h1>
+    </div>
+
+    <script type="text/javascript">
+        var app = new Vue({
+            el:'#app',
+
+            //json格式
+            data:{
+                hd:'red'
+            }
+        });
+    </script>
+</body>
+</html>

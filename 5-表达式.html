@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+    <style type="text/css">
+        .hd1{
+            color: red;
+        }
+        .hd2{
+            color: green;
+        }
+    </style>
+    <div id="app">
+        <h1 :class="'hd'+n">hello</h1>
+        <input type="text" v-model="n">
+        <br>
+        <input type="radio" v-model="n" value="1">红
+        <input type="radio" v-model="n" value="2">绿
+    </div>
+
+    <script type="text/javascript">
+        var app = new Vue({
+            el:'#app',
+
+            //json格式
+            data:{
+                n:1
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="vue.js"></script>
+    <script type="text/javascript" src="vue-router.js"></script>
+</head>
+<body>
+    <div id="app">
+       <router-view></router-view>
+    </div>
+
+    <!-- 显示主页模板 -->
+    <!-- 只要动态的数据都用v-bind -->
+    <script type="x-template" id="home">
+        <div>
+            <li v-for="v in news">
+               <router-link :to="{name:'content',params:{id:v.id}}"></router-link>
+               <a href="" @click.prevent="go(v.id)">{{v.title}}</a>
+            </li>
+
+            <!-- 第二个路由显示区域 -->
+            <router-view></router-view>
+        </div>
+    </script>
+    
+    <!-- 显示内容模板 -->
+    <script type="x-template" id="content">
+        <div>
+            <h1>{{field.title}}</h1>
+            <p>
+                {{field.content}}
+            </p>
+            <router-link to="/">返回首页</router-link>
+        </div>
+    </script>
+
+    <script type="text/javascript">
+        var data = [
+             {id:1,title:"hello",content:"nihao"}, 
+             {id:2,title:"world",content:"shijie"}
+        ];
+
+        const home={
+            template:"#home",
+            data(){
+                return{
+                    news:data
+                }
+            },
+            methods:{
+                go(id){
+                   this.$router.push({name:'content',params:{id:id}});
+                }
+            }
+        }
+
+        const content={
+            template:"#content",
+            data(){
+                return{
+                    field:{}
+                }
+            },
+            // 挂载只能执行一次，联合监听路由才能实现页面的切换
+
+
+            
+            watch:{
+                '$route'(to,from){
+                    this.load();
+                }
+            },
+            mounted(){
+                this.load();
+            },
+            methods:{
+                load(){
+                    var id = this.$route.params.id;
+                    for(let k=0; k<data.length;k++){
+                        if(data[k].id == id){
+                            this.field = data[k];
+                        }
+                    }
+
+                }
+            }
+            
+        }
+
+        // 跟初始化Vue一样，初始化VueRouter
+        let routes = [
+            // children并非随便定义而是关键字
+            // 定义了子路由，其显示在其子组件中的router-view中显示
+            {path:'/',component:home,children:[{
+                path:'/content/:id',component:content,name:'content'}
+                ]
+            }
+        ];
+
+        let route = new VueRouter({routes})
+       
+        var app = new Vue({
+            el:'#app',
+            router:route
+        });
+    </script>
+</body>
+</html>

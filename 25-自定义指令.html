@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 在自定义的指令前面加上v- -->
+        <span v-change="color">hello world
+            <input type="text" v-model="color">
+        </span>
+       
+    </div>
+
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                title:'hello world',
+                color:'red'
+            },
+            directives:{
+                // 绑定钩子
+                // change:{
+                //     bind(el,bind){
+                //         var color = bind.value?bind.value:'red';
+                //         el.style.cssText = "color:"+color;
+                //     }
+                // }
+                
+                // 同时操作绑定和更新操作，直接写成函数
+                change(el,bind){
+                        var color = bind.value?bind.value:'red';
+                        el.style.cssText = "color:"+color;
+                    
+                }
+            }
+        });
+    </script>
+</body>
+</html>

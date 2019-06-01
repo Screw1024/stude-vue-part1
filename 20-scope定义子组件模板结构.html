@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <lists :data="news">
+            <!-- scope范围,slot-scope连在一起写替换slot标签 -->
+            <!-- 这样可以更改{{}}内容的样式，不会被写死 -->
+            <template slot-scope="v">
+                <li>
+                    <h2>{{v.field.title}}</h2>
+                </li>
+            </template>
+        </lists>
+    </div>
+
+    <script type="text/x-template" id="lists">
+        <ul>
+            <slot v-for="v in data" :field="v"></slot>
+        </ul>
+    </script>
+
+    <script type="text/javascript">
+
+        var lists = {
+            template:"#lists",
+            // 通过props接受父组件的值，才可以在子组件中使用
+            props:['data']
+        };
+        
+        // 根组件特殊，直接通过el当作模板
+        var app = new Vue({
+            el:'#app',
+            components:{lists},
+            data:{
+                news:[
+                    {title:'hello'},
+                    {title:'world'}
+                ]
+            }
+        });
+    </script>
+</body>
+</html>
